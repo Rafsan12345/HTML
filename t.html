@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cafe Daruchine Cash Calculator</title>
+</head>
+<body>
+
+
+
+  <h1>Cafe Daruchine Cash Calculator</h1>
+  <label for="PER KG">Berger:</label>
+  <input type="number" id="num1">
+  <br>
+  <br><br>
+  <label for="PER KG">Pizza:</label>
+  <input type="number" id="num2">
+  <br>
+  <br><br>
+  <label for="PER KG">Pepsi:</label>
+  <input type="number" id="num3">
+  <br>
+  <br><br>
+
+  <label for="PER KG">Nasos:</label>
+  <input type="number" id="num4">
+  <br>
+  <br><br>
+   <label for="PER KG">Discount:</label>
+  <input type="number" id="num5">
+  <br>
+  <br><br>
+  <br>
+
+  <br><br>
+  <button onclick="addNumbers()">Calculate</button>
+
+  <p id="result"></p>
+  <p id="p"></p>
+  <p id="p2"></p>
+  <h1 id="u" ></h1>
+  <h1 id="u2" ></h1>
+
+  <script>
+    function addNumbers() {
+    const Berger = 100;
+    const Pizza = 400;
+    const Pepsi = 60;
+    const Nasos =  120;
+
+    const nnum1 = document.getElementById('num1').value;
+    const nnum2 = document.getElementById('num2').value;
+    const nnum3 = document.getElementById('num3').value;
+    const nnum4 = document.getElementById('num4').value;
+    const dis = document.getElementById('num5').value;
+
+
+
+    const sum = (nnum1*Berger)+(nnum2*Pizza)+(nnum3*Pepsi)+(nnum4*Nasos);
+
+    const dis2 =  (dis*sum)/100;
+
+
+
+
+    document.getElementById('u').textContent = `Actual bill  ${sum}/-`;
+    document.getElementById('u2').textContent = `With Discount ${sum-dis2}/-`;
+
+
+
+
+
+
+
+
+      // document.getElementById('p').textContent = `Loss/Profit percentage: ${per*100}  %`;
+      // document.getElementById('p2').textContent = `Total Amount: ${(tk+sum)/1000} k `;
+      // document.getElementById('u').textContent = `Total Amount: ${(tk+sum)/1000} k `;
+    }
+
+
+
+</script>
+</body>
+</html>

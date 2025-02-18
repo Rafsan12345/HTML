@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP Request Example</title>
+</head>
+<body>
+    <h1>HTTP Request Example</h1>
+    <button onclick="makeRequest()">Make Request</button>
+    <pre id="response-headers"></pre>
+
+    <script>
+        async function makeRequest() {
+            const url = 'https://jsonplaceholder.typicode.com/posts';
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET'
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const headers = [...response.headers.entries()];
+                displayHeaders(headers);
+            } catch (error) {
+                document.getElementById('response-headers').innerText = 'Failed to fetch data: ' + error;
+            }
+        }
+
+        function displayHeaders(headers) {
+            const headersDiv = document.getElementById('response-headers');
+            headersDiv.innerText = headers.map(header => `${header[0]}: ${header[1]}`).join('\n');
+        }
+    </script>
+</body>
+</html>

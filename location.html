@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Load Google Maps</title>
+</head>
+<body>
+    <button onclick="loadMap()">Load Map</button>
+
+    <script>
+        function loadMap() {
+            var latitude = 25.2674048;
+            var longitude = 89.2370944;
+            var url = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
