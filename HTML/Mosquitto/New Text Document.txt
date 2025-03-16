@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT with Mosquitto (Local)</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+    <h2>Local MQTT with JavaScript</h2>
+    <button onclick="sendData()">Send Random Data</button>
+    <p id="status">Connecting...</p>
+    <p id="received"></p>
+
+    <script>
+        // MQTT WebSocket ব্রোকার URL (Mosquitto Local Server)
+        const broker = "ws://localhost:9001";  // Mosquitto WebSocket Port
+        const topic = "test/topic";  // MQTT টপিক  
+
+        // MQTT ক্লায়েন্ট তৈরি
+        const client = mqtt.connect(broker);
+
+        // সংযোগ হলে
+        client.on("connect", function () {
+            document.getElementById("status").innerText = "Connected to Mosquitto!";
+            console.log("Connected to Mosquitto");
+
+            // ফিড সাবস্ক্রাইব করা
+            client.subscribe(topic);
+        });
+
+        // MQTT থেকে নতুন ডাটা পাওয়া গেলে
+        client.on("message", function (topic, message) {
+            console.log(`Received from ${topic}: ${message.toString()}`);
+            document.getElementById("received").innerText = `Received: ${message.toString()}`;
+        });
+
+        // ডাটা পাঠানোর ফাংশন
+        function sendData() {
+            let data = Math.floor(Math.random() * 100); // রেন্ডম সংখ্যা
+            console.log(`Publishing: ${data}`);
+            client.publish(topic, data.toString());
+        }
+    </script>
+</body>
+</html>

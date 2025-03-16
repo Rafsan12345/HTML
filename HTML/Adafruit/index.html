@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT with JavaScript</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+    <h2>Adafruit IO MQTT with JavaScript</h2>
+    <button onclick="sendData()">Send Random Data</button>
+    <p id="status">Connecting...</p>
+    <p id="received"></p>
+
+    <script>
+        // Adafruit IO তথ্য
+        const AIO_USERNAME = "RA....."; // আপনার Adafruit IO ইউজারনেম
+        const AIO_KEY = "aio_mkhW81Z11wJi0ly......";   // আপনার Adafruit IO API Key
+        const FEED_NAME = "relay1";        // আপনার ফিডের নাম
+
+        // MQTT WebSocket ব্রোকার URL
+        const broker = `wss://io.adafruit.com:443/mqtt`;
+        const options = {
+            username: AIO_USERNAME,
+            password: AIO_KEY
+        };
+
+        // MQTT ক্লায়েন্ট তৈরি
+        const client = mqtt.connect(broker, options);
+
+        // সংযোগ হলে
+        client.on("connect", function () {
+            document.getElementById("status").innerText = "Connected to Adafruit IO!";
+            console.log("Connected to Adafruit IO");
+
+            // ফিড সাবস্ক্রাইব করা
+            client.subscribe(`${AIO_USERNAME}/feeds/${FEED_NAME}`);
+        });
+
+        // MQTT থেকে নতুন ডাটা পাওয়া গেলে
+        client.on("message", function (topic, message) {
+            console.log(`Received from ${topic}: ${message.toString()}`);
+            document.getElementById("received").innerText = `Received: ${message.toString()}`;
+        });
+
+        // ডাটা পাঠানোর ফাংশন
+        function sendData() {
+            let data = Math.floor(Math.random() * 100); // রেন্ডম সংখ্যা
+            console.log(`Publishing: ${data}`);
+            client.publish(`${AIO_USERNAME}/feeds/${FEED_NAME}`, data.toString());
+        }
+    </script>
+</body>
+</html>
