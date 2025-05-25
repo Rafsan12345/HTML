@@ -1,0 +1,126 @@
+
+<!-- myform.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Form Elements</title>
+</head>
+<body>
+    <h2>All HTML Form Elements</h2>
+    <form action="submit.php" method="post" enctype="multipart/form-data">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter full name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="1" max="120"><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob"><br><br>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time"><br><br>
+
+        <label for="color">Favorite Color:</label>
+        <input type="color" id="color" name="color"><br><br>
+
+        <label for="website">Website:</label>
+        <input type="url" id="website" name="website"><br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone"><br><br>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <input type="radio" name="gender" value="Other"> Other<br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+        </select><br><br>
+
+        <label for="browser">Your Browser:</label>
+        <input list="browsers" name="browser" id="browser">
+        <datalist id="browsers">
+            <option value="Chrome">
+            <option value="Firefox">
+            <option value="Safari">
+        </datalist><br><br>
+
+        <label>Skills:</label>
+        <input type="checkbox" name="skills[]" value="HTML"> HTML
+        <input type="checkbox" name="skills[]" value="CSS"> CSS
+        <input type="checkbox" name="skills[]" value="JavaScript"> JavaScript<br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" placeholder="Write here..."></textarea><br><br>
+
+        <input type="hidden" name="form_id" value="form12345">
+
+        <label for="file">Upload File:</label>
+        <input type="file" name="file" id="file"><br><br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>
+
+
+<?php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo "<h2>আপনার ইনপুট ডেটাগুলো:</h2>";
+
+    echo "Full Name: " . htmlspecialchars($_POST['fullname']) . "<br>";
+    echo "Email: " . htmlspecialchars($_POST['email']) . "<br>";
+    echo "Password: " . htmlspecialchars($_POST['password']) . "<br>";
+    echo "Age: " . htmlspecialchars($_POST['age']) . "<br>";
+    echo "Date of Birth: " . htmlspecialchars($_POST['dob']) . "<br>";
+    echo "Time: " . htmlspecialchars($_POST['time']) . "<br>";
+    echo "Color: " . htmlspecialchars($_POST['color']) . "<br>";
+    echo "Website: " . htmlspecialchars($_POST['website']) . "<br>";
+    echo "Phone: " . htmlspecialchars($_POST['phone']) . "<br>";
+    echo "Gender: " . htmlspecialchars($_POST['gender']) . "<br>";
+
+    echo "Country: " . htmlspecialchars($_POST['country']) . "<br>";
+    echo "Browser: " . htmlspecialchars($_POST['browser']) . "<br>";
+
+    echo "Skills: ";
+    if (!empty($_POST['skills'])) {
+        foreach ($_POST['skills'] as $skill) {
+            echo htmlspecialchars($skill) . " ";
+        }
+    }
+    echo "<br>";
+
+    echo "Message: " . nl2br(htmlspecialchars($_POST['message'])) . "<br>";
+
+    echo "Form ID (hidden): " . htmlspecialchars($_POST['form_id']) . "<br>";
+
+    if (isset($_FILES['file'])) {
+        echo "Uploaded File Name: " . $_FILES['file']['name'] . "<br>";
+        echo "File Type: " . $_FILES['file']['type'] . "<br>";
+        echo "File Size: " . $_FILES['file']['size'] . " bytes<br>";
+
+        $target = "uploads/" . basename($_FILES['file']['name']);
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
+            echo "File uploaded successfully to: " . $target . "<br>";
+        } else {
+            echo "File upload failed.<br>";
+        }
+    }
+} else {
+    echo "ফর্ম সাবমিট হয়নি।";
+}
+?>
+?>
