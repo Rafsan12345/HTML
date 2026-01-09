@@ -1,0 +1,53 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  background: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  animation: fadeSlide 1.2s ease forwards infinite;
+}
+
+@keyframes fadeSlide {
+  from {
+    background-color: rgb(69, 69, 218);
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    background-color: bisque;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+.img {
+  position: absolute;
+  top: 20px;
+  left: 10;
+  width: 60px;      /* image ছোট */
+  height: auto;
+  animation: moveRotate 5s linear infinite;
+}
+
+@keyframes moveRotate {
+  from {
+    transform: translateX(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(400px) rotate(360deg);
+  }
+}
+
+
