@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Example</title>
+<style>
+/* Container */
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Search bar */
+input[type="text"] {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 2px solid #2196f3;
+  outline: none;
+  font-size: 16px;
+  transition: width 0.3s;
+}
+
+input[type="text"]:focus {
+  width: 100%;
+  border-color: #0d47a1;
+}
+
+/* Result list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+li {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  background: #f1f1f1;
+  border-radius: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+li:hover {
+  background: #2196f3;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>User Search Example</h2>
+  <input type="text" id="searchInput" placeholder="Search user...">
+  <ul id="resultList"></ul>
+</div>
+
+
+<script>
+const users = [
+  { name: "Hasemi Rafsan", page: "hasemi.html" },
+  { name: "Rafiq Ahmed", page: "rafiq.html" },
+  { name: "Sadia Islam", page: "sadia.html" },
+  { name: "Anik Chowdhury", page: "anik.html" },
+  { name: "Rumana Akter", page: "rumana.html" },
+  { name: "Tariq Mahmud", page: "tariq.html" },
+  { name: "Nabila Khan", page: "nabila.html" },
+  { name: "Fahim Hassan", page: "fahim.html" }
+];
+
+const searchInput = document.getElementById("searchInput");
+const resultList = document.getElementById("resultList");
+
+searchInput.addEventListener("keyup", function() {
+    const query = searchInput.value.toLowerCase();
+    resultList.innerHTML = "";
+
+    if(query === "") return;
+
+    const filtered = users.filter(user => user.name.toLowerCase().includes(query));
+
+    filtered.forEach(user => {
+        const li = document.createElement("li");
+        li.textContent = user.name;
+
+        // ✅ Click to open new page
+        li.addEventListener("click", function() {
+            window.location.href = user.page;
+        });
+
+        resultList.appendChild(li);
+    });
+
+    if(filtered.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No results found";
+        li.style.background = "#ffcdd2";
+        li.style.color = "#b71c1c";
+        resultList.appendChild(li);
+    }
+});
+
+</script>
+
+</body>
+</html>
